@@ -25,7 +25,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('posts/{post}', function ($slug) {
+Route::get('posts/{post}', function ($id) {
     // $path = __DIR__ . "/../resources/posts/{$slug}.html";
 
     // if (!file_exists($path)) {
@@ -34,7 +34,7 @@ Route::get('posts/{post}', function ($slug) {
 
     // $post = cache()->remember("posts.{$slug}", 1200, fn () => file_get_contents($path));
 
-    $post = Post::findOrFail($slug);
+    $post = Post::findOrFail($id);
 
     // $post = file_get_contents($path);
 
