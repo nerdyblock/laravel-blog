@@ -19,13 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
-
-
     return view('posts', [
-        'posts' => Post::latest()->get() // get all posts with its corresposnding category
+        'posts' => Post::latest()->get(), // get all posts with its corresposnding category
+        'categories' => Category::all()
     ]);
-});
+})->name('home');
 
 Route::get('posts/{post:slug}', function (Post $post) {
     // $path = __DIR__ . "/../resources/posts/{$slug}.html";
@@ -45,12 +43,15 @@ Route::get('posts/{post:slug}', function (Post $post) {
 
 Route::get('category/{category:slug}', function (Category $category) {
     return view('posts', [
-        'posts' => $category->posts
+        'posts' => $category->posts,
+        'categories' => Category::all(),
+        'currentCategory' => $category
     ]);
 });
 
 Route::get('author/{author:username}', function (User $author) {
     return view('posts', [
-        'posts' => $author->posts
+        'posts' => $author->posts,
+        'categories' => Category::all()
     ]);
 });

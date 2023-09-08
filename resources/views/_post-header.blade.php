@@ -5,7 +5,7 @@
 
     <h2 class="inline-flex mt-2">
         By Lary Laracore
-        <img src="./images/lary-head.svg" alt="Head of Lary the mascot" />
+        <img src="/images/lary-head.svg" alt="Head of Lary the mascot" />
     </h2>
 
     <p class="text-sm mt-14">
@@ -16,13 +16,22 @@
 
     <div class="space-y-2 lg:space-y-0 lg:space-x-4 mt-8">
         <!--  Category -->
-        <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">
-            <select class="flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm font-semibold">
-                <option value="category" disabled selected>Category</option>
-                <option value="personal">Personal</option>
-                <option value="business">Business</option>
-            </select>
+        <div class="relative lg:inline-flex flex items-center bg-gray-100 rounded-xl">
 
+            <x-dropdown>
+                <x-slot name="trigger">
+                    <button class="py-2 pl-3 pr-9 text-sm font-semibold w-full flex lg:inline-flex lg:w-32 text-left">{{ isset($currentCategory) ? ucwords($currentCategory->name) : "Categories" }}</button>
+                </x-slot>
+
+                <x-dropdown-item href="/" :active="request()->routeIs('home')">All</x-dropdown-item>
+
+                @foreach ($categories as $category) 
+                    <x-dropdown-item href="/category/{{ $category->slug }}" 
+                        :active="isset($currentCategory) && $currentCategory->id === $category->id">{{ ucwords($category->name) }}
+                    </x-dropdown-item>
+                @endforeach
+            </x-dropdown>
+            
             <svg class="transform -rotate-90 absolute pointer-events-none" style="right: 12px" width="22" height="22" viewBox="0 0 22 22">
                 <g fill="none" fill-rule="evenodd">
                     <path stroke="#000" stroke-opacity=".012" stroke-width=".5" d="M21 1v20.16H.84V1z"></path>
