@@ -18,9 +18,8 @@ class PostController extends Controller
         //         ->orWhere('body', 'like', '%' . request('search') . '%');
         // }
 
-        return view('posts', [
-            'posts' => Post::latest()->filter(request(['search']))->get(), // get all posts with its corresposnding category
-            'categories' => Category::all()
+        return view('posts.index', [
+            'posts' => Post::latest()->filter(request(['search', 'category']))->get(), // get all posts with its corresposnding category
         ]);
     }
 
@@ -38,6 +37,6 @@ class PostController extends Controller
 
         // $post = file_get_contents($path);
 
-        return view('post', ['post' => $post]);
+        return view('posts.show', ['post' => $post]);
     }
 }

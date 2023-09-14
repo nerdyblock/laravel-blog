@@ -7,19 +7,7 @@
         <!--  Category -->
         <div class="relative lg:inline-flex flex items-center bg-gray-100 rounded-xl">
 
-            <x-dropdown>
-                <x-slot name="trigger">
-                    <button class="py-2 pl-3 pr-9 text-sm font-semibold w-full flex lg:inline-flex lg:w-32 text-left">{{ isset($currentCategory) ? ucwords($currentCategory->name) : "Categories" }}</button>
-                </x-slot>
-
-                <x-dropdown-item href="/" :active="request()->routeIs('home')">All</x-dropdown-item>
-
-                @foreach ($categories as $category) 
-                    <x-dropdown-item href="/category/{{ $category->slug }}" 
-                        :active="isset($currentCategory) && $currentCategory->id === $category->id">{{ ucwords($category->name) }}
-                    </x-dropdown-item>
-                @endforeach
-            </x-dropdown>
+            <x-category-dropdown />
 
             <svg class="transform -rotate-90 absolute pointer-events-none" style="right: 12px" width="22" height="22" viewBox="0 0 22 22">
                 <g fill="none" fill-rule="evenodd">
