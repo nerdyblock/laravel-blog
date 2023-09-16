@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\Category;
+// use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -19,7 +19,11 @@ class PostController extends Controller
         // }
 
         return view('posts.index', [
-            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->get(), // get all posts with its corresposnding category
+            'posts' => Post::latest()->filter(
+                request(
+                    ['search', 'category', 'author']
+                )
+            )->paginate(6)->withQueryString(), // get all posts with its corresposnding category
         ]);
     }
 
