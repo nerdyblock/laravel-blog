@@ -25,10 +25,16 @@ class Post extends Model
 
         $query->when(
             $filters['search'] ?? false,
-            fn ($query, $search)
-            => $query
-                ->where('title', 'like', '%' . $search . '%')
-                ->orWhere('body', 'like', '%' . $search . '%')
+            fn ($query, $search) =>
+            $query->where(
+                fn ($query) =>
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('body', 'like', '%' . $search . '%')
+            )
+
+            // $query
+            // ->where('title', 'like', '%' . $search . '%')
+            // ->orWhere('body', 'like', '%' . $search . '%')
         );
 
         $query->when(
@@ -41,6 +47,12 @@ class Post extends Model
             //         ->where('categories.slug', $category)
             // )
             $query->whereHas('category', fn ($query) => $query->where('slug', $category))
+        );
+
+        $query->when(
+            $filters['author'] ?? false,
+            fn ($query, $author) =>
+            $query->whereHas('author', fn ($query) => $query->where('username', $author))
         );
     }
 

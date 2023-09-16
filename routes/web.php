@@ -31,8 +31,8 @@ Route::get('posts/{post:slug}', [PostController::class, 'show']);
 //     ]);
 // });
 
-Route::get('author/{author:username}', function (User $author) {
-    return view('posts', [
-        'posts' => $author->posts,
-    ]);
-});
+// Route::get('author/{author:username}', function (User $author) {
+//     return view('posts.index', [
+//         'posts' => $author->posts,
+//     ]);
+// });
