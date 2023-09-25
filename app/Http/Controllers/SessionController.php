@@ -26,7 +26,7 @@ class SessionController extends Controller
             return redirect('/')->with('success', 'Welcome Back!');
         }
 
-        throw ValidationException::withMessages([
+        throw \Illuminate\Validation\ValidationException::withMessages([
             'email' => 'Your provided credentials could not be verified.'
         ]);
     }

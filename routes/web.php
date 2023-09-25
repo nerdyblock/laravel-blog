@@ -10,7 +10,6 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\PostCommentController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +20,26 @@ use App\Http\Controllers\PostCommentController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('ping', function () {
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us11'
+    ]);
+
+    //id = "19d9c01a3f"
+
+    // $response = $mailchimp->lists->getList("19d9c01a3f");
+
+    $response = $mailchimp->lists->addListMember("19d9c01a3f", [
+        "email_address" => "lzz08245@zbock.com",
+        "status" => "subscribed",
+    ]);
+
+    dd($response);
+});
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
