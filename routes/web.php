@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Models\Category;
 use App\Models\Post;
@@ -8,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\PostCommentController;
-
+use App\Services\Newsletter;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,25 +22,7 @@ use App\Http\Controllers\PostCommentController;
 |
 */
 
-Route::get('ping', function () {
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us11'
-    ]);
-
-    //id = "19d9c01a3f"
-
-    // $response = $mailchimp->lists->getList("19d9c01a3f");
-
-    $response = $mailchimp->lists->addListMember("19d9c01a3f", [
-        "email_address" => "lzz08245@zbock.com",
-        "status" => "subscribed",
-    ]);
-
-    dd($response);
-});
+Route::post('newsletter', NewsletterController::class);
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
