@@ -21,7 +21,7 @@
                     placeholder="Quick, thing of something to say!"
                     required></textarea>
 
-                @error
+                @error('body')
                     <span class="text-xs text-red-500">{{ $message }}</span>
                 @enderror
             </div>
